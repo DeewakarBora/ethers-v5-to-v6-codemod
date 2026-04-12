@@ -1,0 +1,21 @@
+{
+  "name": "ethers-v5-to-v6-codemod",
+  "version": "1.0.0",
+  "description": "Automatically migrates ethers.js v5 code to v6 using jscodeshift. Supports JavaScript and TypeScript.",
+  "main": "recipe.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeewakarBora/ethers-v5-to-v6-codemod.git"
+  },
+  "keywords": ["ethers", "ethers.js", "codemod", "jscodeshift", "migration", "v5-to-v6"],
+  "author": "DeewakarBora",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DeewakarBora/ethers-v5-to-v6-codemod/issues"
+  },
+  "homepage": "https://github.com/DeewakarBora/ethers-v5-to-v6-codemod#readme"
+}

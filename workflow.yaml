@@ -1,0 +1,32 @@
+version: "1"
+nodes:
+  - id: migrate-ethers
+    name: Migrate ethers.js v5 to v6
+    type: automatic
+    steps:
+      - name: Install dependencies
+        run: npm install --save-dev jscodeshift
+      - name: Run transform 1
+        run: npx jscodeshift -t transform.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 2
+        run: npx jscodeshift -t transform2.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 3
+        run: npx jscodeshift -t transform3.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 4
+        run: npx jscodeshift -t transform4.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 5
+        run: npx jscodeshift -t transform5.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 6
+        run: npx jscodeshift -t transform6.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 7
+        run: npx jscodeshift -t transform7.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 8
+        run: npx jscodeshift -t transform8.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 9
+        run: npx jscodeshift -t transform9.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 10
+        run: npx jscodeshift -t transform10.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 11
+        run: npx jscodeshift -t transform11.js --extensions=js,ts,jsx,tsx .
+      - name: Run transform 12
+        run: npx jscodeshift -t transform12.js --extensions=js,ts,jsx,tsx .

@@ -12,11 +12,11 @@ Doing this by hand across a real codebase with hundreds of files means days of t
 
 ## 2. The Approach
 
-The solution was a suite of **12 jscodeshift transforms** plus a combined `recipe.js` that chains them all in a single command.
+The solution was a suite of **12 jssg (JavaScript ast-grep) transforms** orchestrated via workflow.yaml.
 
-[jscodeshift](https://github.com/facebook/jscodeshift) parses JavaScript and TypeScript source files into an **Abstract Syntax Tree (AST)** — a language-aware, structured representation of the code. Transforms traverse the AST, find specific v5 patterns, and replace them with their v6 equivalents. Because the matching is structural rather than textual, it is immune to false positives: a pattern inside a string literal or a comment is never touched.
+[jssg](https://docs.codemod.com/jssg/intro) parses JavaScript and TypeScript source files into an **Abstract Syntax Tree (AST)** — a language-aware, structured representation of the code. Transforms traverse the AST, find specific v5 patterns, and replace them with their v6 equivalents. Because the matching is structural rather than textual, it is immune to false positives: a pattern inside a string literal or a comment is never touched.
 
-Each transform handles exactly one category of changes in isolation, making the system easy to test, extend, and audit. `recipe.js` pipes all 12 transforms in sequence — the output of one becomes the input of the next — so a single command performs the complete migration.
+Each transform handles exactly one category of changes in isolation, making the system easy to test, extend, and audit. workflow.yaml orchestrates all 12 transforms in sequence
 
 ---
 
@@ -83,7 +83,7 @@ Three distinct v5 patterns — `utils.parseEther`, `callStatic`, and `utils.form
 
 | Source | Coverage |
 |---|---|
-| Automated codemod (`recipe.js`) | ~95% |
+| Automated codemod (jssg transforms) | ~95% |
 | AI agent following `AI-INSTRUCTIONS.md` | ~4% |
 | Human review for truly ambiguous cases | ~1% |
 
@@ -107,13 +107,11 @@ The zero-false-positive guarantee is the most important property. Developers can
 
 ## 8. How to Use
 
-```bash
-# Dry run first (no files are written)
-npx jscodeshift -t recipe.js ./your-project --extensions=ts --parser=ts --dry
+# Run via Codemod registry
+npx codemod ethers-v5-to-v6-codemod
 
-# Apply for real once satisfied
-npx jscodeshift -t recipe.js ./your-project --extensions=ts --parser=ts
-```
+# Or run workflow directly
+npx codemod workflow run -w workflow.yaml -t ./your-project
 
 After the automated pass, open `AI-INSTRUCTIONS.md` and use it as a checklist to handle the remaining edge cases — or pass it to an AI agent to complete the migration automatically.
 

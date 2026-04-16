@@ -1,31 +1,26 @@
 # ethers-v5-to-v6-codemod
 
-![jscodeshift](https://img.shields.io/badge/jscodeshift-powered-orange?style=flat-square)
+![jssg](https://img.shields.io/badge/jssg-powered-orange?style=flat-square)
 ![ethers](https://img.shields.io/badge/ethers.js-v5%20→%20v6-blue?style=flat-square)
 ![coverage](https://img.shields.io/badge/migration%20coverage-~95%25-brightgreen?style=flat-square)
 ![false positives](https://img.shields.io/badge/false%20positives-zero-brightgreen?style=flat-square)
 ![language](https://img.shields.io/badge/JS%20%2B%20TypeScript-supported-blueviolet?style=flat-square)
 
-A **production-grade automated migration toolkit** that transforms ethers.js v5 code to v6 using 12 targeted jscodeshift transforms and a single combined recipe. Covers ~95% of all real-world migration patterns with zero false positives.
+A **production-grade automated migration toolkit** that transforms ethers.js v5 code to v6 using 12 jssg (JavaScript ast-grep) transforms. Covers ~95% of all real-world migration patterns with zero false positives.
 
 ---
 
 ## Quick Start
 
 ```bash
-# JavaScript projects
-npx jscodeshift -t recipe.js ./your-project --extensions=js --dry
+# Run via Codemod registry
+npx codemod ethers-v5-to-v6-codemod
 
-# TypeScript projects
-npx jscodeshift -t recipe.js ./your-project --extensions=ts --parser=ts --dry
-
-# Mixed JS/TS projects
-npx jscodeshift -t recipe.js ./your-project --extensions=js,ts --parser=ts --dry
-
-# Remove --dry to apply changes for real
+# Or run workflow directly
+npx codemod workflow run -w workflow.yaml -t ./your-project
 ```
 
-> **Tip:** Always run with `--dry` first to preview changes before writing them to disk.
+> **Tip:** Always test on a copy of your project first.
 
 ---
 
@@ -74,7 +69,7 @@ console.log(ethers.formatEther(priceQuote));
 
 ## Edge Cases
 
-The automated transforms handle the majority of changes deterministically. For the remaining ~5%, see **[AI-INSTRUCTIONS.md](./AI-INSTRUCTIONS.md)**, which documents **11 edge cases** that require manual or AI-assisted handling, including:
+For the remaining ~5%, see **[AI-INSTRUCTIONS.md](./AI-INSTRUCTIONS.md)** which documents 11 edge cases requiring manual or AI-assisted handling, including:
 
 - `BigNumber` TypeScript type annotations → `bigint`
 - `ethers.utils.commify` replacement (removed in v6)
@@ -87,51 +82,41 @@ The automated transforms handle the majority of changes deterministically. For t
 
 ## How It Works
 
-jscodeshift parses your source files into an **Abstract Syntax Tree (AST)** — a structured, language-aware representation of your code. Each transform traverses the AST to find specific v5 patterns and replaces them with their v6 equivalents, preserving your original formatting and comments.
-
-`recipe.js` chains all 12 transforms in sequence, passing the output of each transform as the input to the next, so a single command migrates everything in one pass.
-
-```
-your file → transform1 → transform2 → ... → transform12 → migrated file
-```
+jssg (JavaScript ast-grep) parses your source files into an **Abstract Syntax Tree (AST)**. Each transform uses pattern matching to find specific v5 patterns and replaces them with their v6 equivalents, preserving your original formatting and comments.
 
 Because transforms operate on the AST rather than raw text, replacements are **structurally exact** — they cannot accidentally match code inside string literals or comments.
 
 ---
 
 ## Project Structure
-
-```
 ethers-v5-to-v6-codemod/
-├── recipe.js              # Chains all 12 transforms into one command
+├── workflow.yaml          # Orchestrates all 12 transforms
+├── codemod.yaml           # Registry metadata
 │
-├── transform.js           # Utils (formatEther, parseEther, constants, ...)
-├── transform2.js          # BigNumber → BigInt (smart scope-aware detection)
-├── transform3.js          # Provider class renames
-├── transform4.js          # Crypto utils (keccak256, sha256, toUtf8Bytes, ...)
-├── transform5.js          # callStatic → staticCall
-├── transform6.js          # contract.address → contract.target
-├── transform7.js          # Transaction broadcast/serialize/parse
-├── transform8.js          # Signature utilities
-├── transform9.js          # Import/require cleanup
-├── transform10.js         # Gas price + hex/address utilities
-├── transform11.js         # estimateGas, populateTransaction, functions
-├── transform12.js         # @ethersproject/* sub-package imports
+├── transform1.ts          # Utils (formatEther, parseEther, constants, ...)
+├── transform2.ts          # BigNumber → BigInt (smart scope-aware detection)
+├── transform3.ts          # Provider class renames
+├── transform4.ts          # Crypto utils (keccak256, sha256, toUtf8Bytes, ...)
+├── transform5.ts          # callStatic → staticCall
+├── transform6.ts          # contract.address → contract.target
+├── transform7.ts          # Transaction broadcast/serialize/parse
+├── transform8.ts          # Signature utilities
+├── transform9.ts          # Import/require cleanup
+├── transform10.ts         # Gas price + hex/address utilities
+├── transform11.ts         # estimateGas, populateTransaction, functions
+├── transform12.ts         # @ethersproject/* sub-package imports
 │
 ├── AI-INSTRUCTIONS.md     # Manual/AI edge case handling guide
+├── CASE-STUDY.md          # Hackathon case study
 │
 ├── test-input.js          # Test files for each transform
-├── test-input2.js
-├── ...
 └── test-input12.ts
-```
-
 ---
 
 ## Requirements
 
 - Node.js 16+
-- `jscodeshift` (used via `npx`, no install required)
+- Codemod CLI (`npx codemod`)
 
 ---
 

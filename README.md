@@ -89,12 +89,13 @@ Because transforms operate on the AST rather than raw text, replacements are **s
 ---
 
 ## Project Structure
+
+```
 ethers-v5-to-v6-codemod/
 ├── workflow.yaml          # Orchestrates all 12 transforms
 ├── codemod.yaml           # Registry metadata
-│
 ├── transform1.ts          # Utils (formatEther, parseEther, constants, ...)
-├── transform2.ts          # BigNumber → BigInt (smart scope-aware detection)
+├── transform2.ts          # BigNumber → BigInt
 ├── transform3.ts          # Provider class renames
 ├── transform4.ts          # Crypto utils (keccak256, sha256, toUtf8Bytes, ...)
 ├── transform5.ts          # callStatic → staticCall
@@ -105,13 +106,11 @@ ethers-v5-to-v6-codemod/
 ├── transform10.ts         # Gas price + hex/address utilities
 ├── transform11.ts         # estimateGas, populateTransaction, functions
 ├── transform12.ts         # @ethersproject/* sub-package imports
-│
 ├── AI-INSTRUCTIONS.md     # Manual/AI edge case handling guide
 ├── CASE-STUDY.md          # Hackathon case study
-│
 ├── test-input.js          # Test files for each transform
 └── test-input12.ts
----
+```
 
 ## Requirements
 

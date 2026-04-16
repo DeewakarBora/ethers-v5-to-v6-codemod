@@ -106,13 +106,13 @@ The zero-false-positive guarantee is the most important property. Developers can
 ---
 
 ## 8. How to Use
-
+'''
 # Run via Codemod registry
 npx codemod ethers-v5-to-v6-codemod
 
 # Or run workflow directly
 npx codemod workflow run -w workflow.yaml -t ./your-project
-
+'''
 After the automated pass, open `AI-INSTRUCTIONS.md` and use it as a checklist to handle the remaining edge cases — or pass it to an AI agent to complete the migration automatically.
 
 The full source, all 12 transforms, and the AI instructions guide are available in the [ethers-v5-to-v6-codemod](https://github.com/) repository.

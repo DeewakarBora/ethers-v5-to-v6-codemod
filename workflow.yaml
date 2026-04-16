@@ -1,42 +1,30 @@
-version: "1.1.0"
+version: "1"
 nodes:
   - id: migrate-ethers
     name: Migrate ethers.js v5 to v6
     type: automatic
     steps:
       - name: Run transform 1
-        engine: jssg
-        transform: ./transform1.ts
+        run: npx codemod jssg transform1.ts .
       - name: Run transform 2
-        engine: jssg
-        transform: ./transform2.ts
+        run: npx codemod jssg transform2.ts .
       - name: Run transform 3
-        engine: jssg
-        transform: ./transform3.ts
+        run: npx codemod jssg transform3.ts .
       - name: Run transform 4
-        engine: jssg
-        transform: ./transform4.ts
+        run: npx codemod jssg transform4.ts .
       - name: Run transform 5
-        engine: jssg
-        transform: ./transform5.ts
+        run: npx codemod jssg transform5.ts .
       - name: Run transform 6
-        engine: jssg
-        transform: ./transform6.ts
+        run: npx codemod jssg transform6.ts .
       - name: Run transform 7
-        engine: jssg
-        transform: ./transform7.ts
+        run: npx codemod jssg transform7.ts .
       - name: Run transform 8
-        engine: jssg
-        transform: ./transform8.ts
+        run: npx codemod jssg transform8.ts .
       - name: Run transform 9
-        engine: jssg
-        transform: ./transform9.ts
+        run: npx codemod jssg transform9.ts .
       - name: Run transform 10
-        engine: jssg
-        transform: ./transform10.ts
+        run: npx codemod jssg transform10.ts .
       - name: Run transform 11
-        engine: jssg
-        transform: ./transform11.ts
+        run: npx codemod jssg transform11.ts .
       - name: Run transform 12
-        engine: jssg
-        transform: ./transform12.ts
+        run: npx codemod jssg transform12.ts .

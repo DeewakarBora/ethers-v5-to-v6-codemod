@@ -5,26 +5,38 @@ nodes:
     type: automatic
     steps:
       - name: Run transform 1
-        run: npx codemod run transform1.ts .
+        engine: jssg
+        transform: ./transform1.ts
       - name: Run transform 2
-        run: npx codemod run transform2.ts .
+        engine: jssg
+        transform: ./transform2.ts
       - name: Run transform 3
-        run: npx codemod run transform3.ts .
+        engine: jssg
+        transform: ./transform3.ts
       - name: Run transform 4
-        run: npx codemod run transform4.ts .
+        engine: jssg
+        transform: ./transform4.ts
       - name: Run transform 5
-        run: npx codemod run transform5.ts .
+        engine: jssg
+        transform: ./transform5.ts
       - name: Run transform 6
-        run: npx codemod run transform6.ts .
+        engine: jssg
+        transform: ./transform6.ts
       - name: Run transform 7
-        run: npx codemod run transform7.ts .
+        engine: jssg
+        transform: ./transform7.ts
       - name: Run transform 8
-        run: npx codemod run transform8.ts .
+        engine: jssg
+        transform: ./transform8.ts
       - name: Run transform 9
-        run: npx codemod run transform9.ts .
+        engine: jssg
+        transform: ./transform9.ts
       - name: Run transform 10
-        run: npx codemod run transform10.ts .
+        engine: jssg
+        transform: ./transform10.ts
       - name: Run transform 11
-        run: npx codemod run transform11.ts .
+        engine: jssg
+        transform: ./transform11.ts
       - name: Run transform 12
-        run: npx codemod run transform12.ts .
+        engine: jssg
+        transform: ./transform12.ts
